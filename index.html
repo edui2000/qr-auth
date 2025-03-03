@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación Distribuido_T</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .code {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066cc;
+            background: #e9f5ff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 15px 0;
+        }
+        .logo {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Distribuido_T</div>
+        <div id="message">Procesando código de autenticación...</div>
+        <div id="action" style="display: none;">
+            <p>Por favor regrese a la aplicación Distribuido_T y continúe con el proceso de inicio de sesión.</p>
+            <button id="close-btn">Cerrar esta ventana</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener el código de autenticación de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const authCode = urlParams.get('code');
+            
+            if (authCode) {
+                document.getElementById('message').innerHTML = 
+                    '<p class="success">¡Código de autenticación válido!</p>' +
+                    '<p>Su código:</p>' +
+                    '<div class="code">' + authCode + '</div>' +
+                    '<p>Por favor ingrese este código en la aplicación Distribuido_T.</p>';
+                
+                // Mostrar el botón para cerrar
+                document.getElementById('action').style.display = 'block';
+                
+                // Manejar el botón de cerrar
+                document.getElementById('close-btn').addEventListener('click', function() {
+                    window.close();
+                });
+            } else {
+                document.getElementById('message').innerHTML = 
+                    '<p style="color: red; font-weight: bold;">No se encontró un código de autenticación válido.</p>' +
+                    '<p>Por favor escanee nuevamente el código QR desde la aplicación Distribuido_T.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
